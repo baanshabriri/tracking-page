@@ -6,8 +6,6 @@ const axios = require('axios');
 
 
 const shipRocketToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI0NzAxOTcsImlzcyI6Imh0dHBzOi8vYXBpdjIuc2hpcHJvY2tldC5pbi92MS9leHRlcm5hbC9hdXRoL2xvZ2luIiwiaWF0IjoxNjQ3MzQzNjc1LCJleHAiOjE2NDgyMDc2NzUsIm5iZiI6MTY0NzM0MzY3NSwianRpIjoiNUJYU1A1UlliRG5CQjZwdSJ9.Ey-SSdi3u_-g4D3PlMBAT0eY2usblzbJh4V5pcYNAYk";
-console.log(shipRocketToken);
-
 
 class shipRocketTracking {
     static async getTrackingDataFromAWB(idType, param) {

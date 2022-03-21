@@ -2,10 +2,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import React, { useState, useEffect } from "react";
 import styles from '../styles/Home.module.css'
-import getPickrrTrackingLink from '../services/pickkr';
-import getShipRocketTrackingLink from '../services/shipRocket';
 import { Card, Button } from 'react-bootstrap';
 import {set, useForm} from 'react-hook-form';
+import getTrackingLink from '../services/tracking';
 
 const pickrrAppendQueryParam = 'PICK-271069';
 
@@ -28,7 +27,7 @@ function PendingOrder(props) {
         return (
         <div>
             <h4>
-                Your Order {document.getElementById('tracking-input').value} is processing. We`&apos;`ll let you know once it`&apos;`s shipped !
+                Your Order {document.getElementById('tracking-input').value} is processing. We will let you know once it is shipped !
             </h4>
         </div> 
         );
@@ -45,26 +44,18 @@ export default function Track() {
     
     async function handleClick () {
         let orderId = String(document.getElementById('tracking-input').value);
-        if (orderId.includes("#")) {
-            orderId = getOrderIdWithoutHash(orderId);
-        }
-        var trackingLink = await getShipRocketTrackingLink(orderId);
-        if (!trackingLink) {
-            trackingLink = await getPickrrTrackingLink(String(orderId.concat('-', pickrrAppendQueryParam)));
-            if (!trackingLink) {
+        let response = await getTrackingLink(orderId);
+        var trackingLink = response.trackingLink;
+
+            if (trackingLink) {
+                setPendingOrder(false);
+                window.open(trackingLink, "_blank");
+            } else {
                 console.log('No tracking link found !! ');
                 setPendingOrder(true);
                 console.log(isPendingOrder);
-            } else {
-                // window.location.href = trackingLink;
-                setPendingOrder(false);
-                window.open(trackingLink, "_blank");
             }
-        } else {
-            setPendingOrder(false);
-            window.open(trackingLink, "_blank");
-        };
-    }
+        }
     
     return (
         <div className={styles.container}>
