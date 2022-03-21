@@ -28,7 +28,7 @@ function PendingOrder(props) {
         return (
         <div>
             <h4>
-                Your Order {document.getElementById('tracking-input').value} is processing. We'll let you know once it's shipped !
+                Your Order {document.getElementById('tracking-input').value} is processing. We`&apos;`ll let you know once it`&apos;`s shipped !
             </h4>
         </div> 
         );
