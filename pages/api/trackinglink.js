@@ -5,7 +5,6 @@ import getShipRocketTrackingLink from '../../services/shipRocket';
 const pickrrAppendQueryParam = 'PICK-271069';
 
 export default async function handler(req, res) {
-  console.log(req);
   let orderId = req?.query?.orderId;
   if (!orderId) {
     return res.status(400).json({ error: "Add order id" });
