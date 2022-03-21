@@ -55,21 +55,7 @@ class shipRocketTracking {
 }
 
 
-class shipRocketOrder {
-
-    static getOrderIdWithoutHash (orderId) {
-        if (orderId) {
-            if (orderId.split('#').length > 1) {
-                return orderId.split('#')[1];
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        };
-        
-    }
-    
+class shipRocketOrder {    
     static async getOrder(param) {
         try {
             const response = await axios({
@@ -117,10 +103,6 @@ class shipRocketOrder {
 }
 
 async function getShipRocketTrackingLink (orderId) {
-    // const cleanOrderId = shipRocketOrder.getOrderIdWithoutHash(orderId);
-    // if (!cleanOrderId) {
-    //     return null;
-    // }
     let res = await shipRocketOrder.getOrder(orderId);
     let awb = res.data[0]?.shipments[0]?.awb;
     if (!(awb === "")) {
@@ -131,39 +113,4 @@ async function getShipRocketTrackingLink (orderId) {
 
 }
 
-// const getTrackingDeets = (orderId) => {
-//     const cleanOrderId      = shipRocketOrder.getOrderIdWithoutHash(orderId);
-//     const [trackingOrderId, setTrackingOrderId] = useState(null);
-//     const [trackingLink, setTrackingLink]       = useState(null);
-
-//     useEffect(() => {
-//         shipRocketOrder.getOrder(cleanOrderId).then(res => {
-//             setTrackingOrderId(res.data[0]?.id);
-//         });
-//     }, []);
-
-//     if (!trackingOrderId) return null;
-
-//     useEffect(() => {
-//         window.location.href = `https://grow91.shiprocket.co/tracking/order/${cleanOrderId}`;
-//     })
-
-//     // useEffect(() => {
-//     //     shipRocketTracking.getTrackingDataFromOrderId(trackingOrderId).then(response => {
-//     //         const data = response.data;
-//     //         setTrackingLink(data);
-//     //     });
-//     // });
-    
-//     // if (!trackingLink) return null;
-//     return (
-//     <div>
-//         <h1>This page is not available</h1>
-//         <p>You are redirecting to google.com/about</p>
-//     </div>
-//     )
-// }
-
-// getTrackingDetails("G23823");
-
-export default  getShipRocketTrackingLink
+export default getShipRocketTrackingLink

@@ -4,138 +4,99 @@ import React, { useState, useEffect } from "react";
 import styles from '../styles/Home.module.css'
 import getPickrrTrackingLink from '../services/pickkr';
 import getShipRocketTrackingLink from '../services/shipRocket';
+import { Card, Button } from 'react-bootstrap';
+import {set, useForm} from 'react-hook-form';
 
 const pickrrAppendQueryParam = 'PICK-271069';
 
-async function handleClick () {
-    const orderId = document.getElementById('pickrr-tracking-input').value;
-    var trackingLink = await getShipRocketTrackingLink(orderId);
-    console.log(trackingLink);
-    if (!trackingLink) {
-        trackingLink = await getPickrrTrackingLink(String(orderId.concat('-', pickrrAppendQueryParam)));
-        console.log(trackingLink);
-        if (!trackingLink) {
-            return (
-                <div>
-                    <h1>This page is not available</h1>
-                    <p>You are redirecting to google.com/about</p>
-                </div>
-            )
+function getOrderIdWithoutHash (orderId) {
+    if (orderId) {
+        if (orderId.split('#').length > 1) {
+            return orderId.split('#')[1];
         } else {
-            // window.location.href = trackingLink;
-            window.open(trackingLink, "_blank");
+            return null;
         }
     } else {
-        window.open(trackingLink, "_blank");
+        return null;
     };
-
-
-
-
-
-    // getShipRocketTrackingLink(orderId).then(rocketResponse => {
-    //     console.log(`RocketResponse  :: ${rocketResponse}`);
-    //     if (!rocketResponse) {
-    //         getPickrrTrackingLink(orderId.concat('-', pickrrAppendQueryParam)).then(pickrrResponse => {
-    //             console.log(`PickrrResponse  :: ${pickrrResponse}`);
-    //             if (!pickrrResponse) {
-    //                 return (
-    //                         <div>
-    //                             <h1>This page is not available</h1>
-    //                             <p>You are redirecting to google.com/about</p>
-    //                         </div>
-    //                     )
-    //             } else {
-    //                 window.location.href = pickrrResponse;
-    //             }
-    //         });
-    //     } else {
-    //         window.location.href = rocketResponse;
-    //     }
-    // });
+    
 }
 
-// function onTrackingClick() {
-//     const orderId = document.getElementById('pickrr-tracking-input').value;
-//     const [trackingLink, setTrackingLink] = useState(null);
-//     console.log(orderId);
-//     useEffect(() => {
-//         getTrackingDetails(orderId).then(response => {
-//             setTrackingLink(response);
-//         });
-//     });
+function PendingOrder(props) {
+    const isPending = props.isPending;
+    if (isPending) {
+        return (
+        <div>
+            <h4>
+                Your Order {document.getElementById('tracking-input').value} is processing. We'll let you know once it's shipped !
+            </h4>
+        </div> 
+        );
+    } else {
+        return (
+            <div></div>
+        );
+    };
+}
 
-//     if (!trackingLink) {
-//         useEffect(() => {
-//             getPickrrTrackingPage(String(orderId).concat('-', pickrrAppendQueryParam)).then(response => {
-//                 setTrackingLink(response);
-//             });
-
-//         if (!trackingLink) {
-//             return (
-//                 <div>
-//                     <h1>This page is not available</h1>
-//                     <p>You are redirecting to google.com/about</p>
-//                 </div>
-//             )       
-//         } else {
-//             useEffect(() => {
-//                 window.location.href = trackingLink;
-//             }, []);    
-//         }
-//         });
-//     } else {
-//         useEffect(() => {
-//             window.location.href = trackingLink;
-//         }, []);
-
-//         return (
-//             <div>
-//                 <h1>This page is not available</h1>
-//                 <p>You are redirecting to google.com/about</p>
-//             </div>
-//         )
-//     }
-// }
-
-
+ 
 export default function Track() {    
+    const [isPendingOrder, setPendingOrder] = useState(false);
+    
+    async function handleClick () {
+        let orderId = String(document.getElementById('tracking-input').value);
+        if (orderId.includes("#")) {
+            orderId = getOrderIdWithoutHash(orderId);
+        }
+        var trackingLink = await getShipRocketTrackingLink(orderId);
+        if (!trackingLink) {
+            trackingLink = await getPickrrTrackingLink(String(orderId.concat('-', pickrrAppendQueryParam)));
+            if (!trackingLink) {
+                console.log('No tracking link found !! ');
+                setPendingOrder(true);
+                console.log(isPendingOrder);
+            } else {
+                // window.location.href = trackingLink;
+                setPendingOrder(false);
+                window.open(trackingLink, "_blank");
+            }
+        } else {
+            setPendingOrder(false);
+            window.open(trackingLink, "_blank");
+        };
+    }
+    
     return (
         <div className={styles.container}>
-            <Head>
-                <h1 className={styles.title}>
-                    Welcome to <a href="https://nextjs.org">Next.js!</a>
-                </h1>
-                <p className={styles.description}>
-                    Get started by editing{' '}
-                <code className={styles.code}>pages/index.js</code>
-                </p>
-
-            </Head>
-            <main className={styles.main}>
-                {/* <br>
-                </br> */}
-                <div className={styles.container} id="pickrr-tracking-container">      
-                    <div className={styles.container} id="pickrr-tracking-radio-group"> 
-                        {/* <input type="radio" id="tracking_id" name="pickrr-query-type" value="tracking_id" checked/> 
-                        <label for="tracking_id">Track ID</label>  */}
-                        <input type="radio" id="client_order_id" name="pickrr-query-type" value="client_order_id"/> 
-                        <label for="client_order_id">Order ID</label> 
-                    </div>
-                    <input id="pickrr-tracking-input" data-id="271069"/> 
-                    <button id="pickrr-tracking-btn" onClick={handleClick}>Track</button>
-                </div>
+            <main className={styles.main}>  
+                <a
+                    href="https://shopping.grow91.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span className={styles.logo}>
+                    <Image src="/Grow_91_LOGO.png" alt="Logo" width={128} height={64} />
+                    </span>
+                </a>
+  
+                <div className={styles.card}>
+                    <h2>
+                        Track your Order here !
+                    </h2>
+                    <input className={styles.input} id="tracking-input" styles="width:100%" type="text" data-id="271069" placeholder='Enter Order ID' />
+                    <button className={styles.submitButton} id="pickrr-tracking-btn" onClick={handleClick} role="button">Track</button>
+                </div> 
+                <PendingOrder isPending={isPendingOrder}></PendingOrder>
                 {/* <script src="https://widget.pickrr.com/script.js"></script> */}
             </main>
             <footer className={styles.footer}>
                 <a
-                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+                    href="https://shopping.grow91.com"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Powered by{' '}
                     <span className={styles.logo}>
-                    <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+                    <Image src="/poweredByGrow91.png" alt="Grow91" width={144} height={64} />
                     </span>
                 </a>
             </footer>
