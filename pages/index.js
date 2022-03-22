@@ -72,7 +72,7 @@ export default function Track() {
         <div className={styles.container}>
           <Head>
             <title>Tracking - Grow91</title>
-            <link rel="icon" href="/Grow_91_LOGO.png" />
+            <link rel="icon" href="/grow91-favicon.png" />
           </Head>
             <main className={styles.main}>  
                 <a

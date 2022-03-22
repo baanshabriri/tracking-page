@@ -4,7 +4,6 @@ const pickrrAppendQueryParam = 'PICK-271069';
 
 class pickrrTracking {
     static async getOrderDetails(orderId) {
-        console.log(`encodedUrl :: ${orderId}`); 
         let url = `https://cfapi.pickrr.com/plugins/tracking/?client_order_id=%23${orderId}`;
         try {
             const response = await axios({
@@ -28,7 +27,6 @@ class pickrrTracking {
 }
 
 async function getPickrrTrackingLink(orderId) {
-    console.log(encodeURI(orderId));
     let response = await pickrrTracking.getOrderDetails(orderId);
     var trackingId = response.tracking_id;
     if (trackingId) {
