@@ -18,7 +18,20 @@ function getOrderIdWithoutHash (orderId) {
     } else {
         return null;
     };
-    
+}
+
+function cleanOrderId (orderId) {
+  if (orderId.startsWith("#")) {
+    if (orderId[1] != 'G') {
+      orderId = 'G' + getOrderIdWithoutHash(orderId);
+    } else {
+      orderId = getOrderIdWithoutHash(orderId);
+    }
+  } else if (!orderId.startsWith('G') && !orderId.startsWith('#')){
+    orderId = 'G' + orderId;
+  }
+  return orderId;
+
 }
 
 function PendingOrder(props) {
@@ -43,9 +56,9 @@ export default function Track() {
     
     async function handleClick () {
         let orderId = String(document.getElementById('tracking-input').value);
+        orderId = cleanOrderId(orderId);      
         let response = await getTrackingLink(orderId);
         var trackingLink = response.trackingLink;
-
             if (trackingLink) {
                 setPendingOrder(false);
                 window.open(trackingLink, "_blank");
@@ -57,6 +70,10 @@ export default function Track() {
     
     return (
         <div className={styles.container}>
+          <Head>
+            <title>Tracking - Grow91</title>
+            <link rel="icon" href="/Grow_91_LOGO.png" />
+          </Head>
             <main className={styles.main}>  
                 <a
                     href="https://shopping.grow91.com"
