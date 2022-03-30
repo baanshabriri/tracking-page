@@ -21,17 +21,32 @@ function getOrderIdWithoutHash (orderId) {
 }
 
 function cleanOrderId (orderId) {
-  if (orderId.startsWith("#")) {
-    if (orderId[1] != 'G') {
-      orderId = 'G' + getOrderIdWithoutHash(orderId);
-    } else {
-      orderId = getOrderIdWithoutHash(orderId);
+    if (orderId.startsWith("#")) {
+        if (orderId[1] != 'G') {
+            orderId = 'G' + getOrderIdWithoutHash(orderId);
+        } else {
+            orderId = getOrderIdWithoutHash(orderId);
+        }
+    } else if (!orderId.startsWith('G') && !orderId.startsWith('#')) {
+        orderId = 'G' + orderId;
     }
-  } else if (!orderId.startsWith('G') && !orderId.startsWith('#')){
-    orderId = 'G' + orderId;
-  }
-  return orderId;
-
+    return orderId;
+}
+function IncorrectOrder(props) {
+    const isIncorrect = props.isIncorrect;
+    if (isIncorrect) {
+        return (
+            <div>
+                <h4>
+                    The Order ID : {document.getElementById('tracking-input').value} provided is incorrect. Please check the Order ID and try again !
+                </h4>
+            </div>
+        );
+    } else {
+        return (
+            <div></div>
+        );
+    }
 }
 
 function PendingOrder(props) {
@@ -52,13 +67,20 @@ function PendingOrder(props) {
 }
  
 export default function Track() {    
-    const [isPendingOrder, setPendingOrder] = useState(false);
+    const [isPendingOrder, setPendingOrder]     = useState(false);
+    const [isIncorrectOrder, setIncorrectOrder] = useState(false);
     
     async function handleClick () {
-        let orderId = String(document.getElementById('tracking-input').value);
-        orderId = cleanOrderId(orderId);      
-        let response = await getTrackingLink(orderId);
+        setIncorrectOrder(false);
+        let orderId      = String(document.getElementById('tracking-input').value);
+        orderId          = cleanOrderId(orderId);      
+        let response     = await getTrackingLink(orderId);
         var trackingLink = response.trackingLink;
+        
+        if (!response.orderFound) {
+            console.log("order found", isIncorrectOrder);
+            setIncorrectOrder(true);
+        } else {
             if (trackingLink) {
                 setPendingOrder(false);
                 window.open(trackingLink, "_blank");
@@ -67,6 +89,7 @@ export default function Track() {
                 setPendingOrder(true);
             }
         }
+    }
     
     return (
         <div className={styles.container}>
@@ -93,6 +116,7 @@ export default function Track() {
                     <button className={styles.submitButton} id="pickrr-tracking-btn" onClick={handleClick} role="button">Track</button>
                 </div> 
                 <PendingOrder isPending={isPendingOrder}></PendingOrder>
+                <IncorrectOrder isIncorrect={isIncorrectOrder}></IncorrectOrder>
                 {/* <script src="https://widget.pickrr.com/script.js"></script> */}
             </main>
             <footer className={styles.footer}>

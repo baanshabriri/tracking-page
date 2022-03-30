@@ -9,9 +9,16 @@ export default async function handler(req, res) {
   if (!orderId) {
     return res.status(400).json({ error: "Add order id" });
   }
+  var orderFound   = false;
   var trackingLink = await getShipRocketTrackingLink(orderId);
-        if (!trackingLink) {
-          trackingLink = await getPickrrTrackingLink(String(orderId.concat('-', pickrrAppendQueryParam)));
-        }
-  res.status(200).json({ trackingLink })
+  console.log(trackingLink);
+  if (!trackingLink) {
+    trackingLink = await getPickrrTrackingLink(String(orderId.concat('-', pickrrAppendQueryParam)));
+  }
+  if (trackingLink) {
+    orderFound = true;
+  } else {
+    orderFound = false;
+  }
+  res.status(200).json({ trackingLink, orderFound });
 }

@@ -103,12 +103,11 @@ class shipRocketOrder {
 async function getShipRocketTrackingLink (orderId) {
     let res = await shipRocketOrder.getOrder(orderId);
     let awb = res.data[0]?.shipments[0]?.awb;
-    if (!(awb === "")) {
-        return `https://grow91.shiprocket.co/tracking/order/${orderId}`;
-    } else {
+    if (res.data.length == 0 || awb === "") {
         return null;
-    }
-
+    } else {
+        return `https://grow91.shiprocket.co/tracking/order/${orderId}`;
+    };
 }
 
 export default getShipRocketTrackingLink
