@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   }
   var orderFound   = false;
   var trackingLink = await getShipRocketTrackingLink(orderId);
-  console.log(trackingLink);
+
   if (!trackingLink) {
     trackingLink = await getPickrrTrackingLink(String(orderId.concat('-', pickrrAppendQueryParam)));
   }

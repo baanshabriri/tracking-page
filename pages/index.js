@@ -10,35 +10,31 @@ const pickrrAppendQueryParam = 'PICK-271069';
 
 function getOrderIdWithoutHash (orderId) {
     if (orderId) {
-        if (orderId.split('#').length > 1) {
+        if (orderId.includes("#")) {
             return orderId.split('#')[1];
         } else {
-            return null;
+            return orderId;
         }
     } else {
         return null;
     };
 }
 
+
 function cleanOrderId (orderId) {
     if (orderId.startsWith("#")) {
-        if (orderId[1] != 'G') {
-            orderId = 'G' + getOrderIdWithoutHash(orderId);
-        } else {
-            orderId = getOrderIdWithoutHash(orderId);
-        }
-    } else if (!orderId.startsWith('G') && !orderId.startsWith('#')) {
-        orderId = 'G' + orderId;
+        return  getOrderIdWithoutHash(orderId);
     }
     return orderId;
 }
+
 function IncorrectOrder(props) {
     const isIncorrect = props.isIncorrect;
     if (isIncorrect) {
         return (
             <div>
                 <h4>
-                    The Order ID : {document.getElementById('tracking-input').value} provided is incorrect. Please check the Order ID and try again !
+                    The Order ID : {document.getElementById('tracking-input').value} provided is incorrect ! Please try again.
                 </h4>
             </div>
         );
@@ -69,25 +65,34 @@ function PendingOrder(props) {
 export default function Track() {    
     const [isPendingOrder, setPendingOrder]     = useState(false);
     const [isIncorrectOrder, setIncorrectOrder] = useState(false);
+    var   [orderId, setOrderId]                 = useState('');
+
+    function handleOnChange(event) {
+        var order_id = String(event.target.value).toUpperCase();
+        setOrderId(order_id);
+        setPendingOrder(false);
+        if (order_id.startsWith("PK") || (order_id.startsWith("G"))) {
+            setIncorrectOrder(false);
+            setOrderId(order_id);
+        } else {
+            setIncorrectOrder(true);
+        }
+    }
     
     async function handleClick () {
-        setIncorrectOrder(false);
-        let orderId      = String(document.getElementById('tracking-input').value);
+        // let orderId      = String(document.getElementById('tracking-input').value);
         orderId          = cleanOrderId(orderId);      
         let response     = await getTrackingLink(orderId);
         var trackingLink = response.trackingLink;
         
-        if (!response.orderFound) {
-            console.log("order found", isIncorrectOrder);
-            setIncorrectOrder(true);
+        if (trackingLink) {
+            setPendingOrder(false);
+            setIncorrectOrder(false);
+            window.open(trackingLink, "_blank");
         } else {
-            if (trackingLink) {
-                setPendingOrder(false);
-                window.open(trackingLink, "_blank");
-            } else {
-                console.log('No tracking link found !! ');
-                setPendingOrder(true);
-            }
+            console.log('No tracking link found !! ');
+            setIncorrectOrder(false);
+            setPendingOrder(true);
         }
     }
     
@@ -98,21 +103,36 @@ export default function Track() {
             <link rel="icon" href="/grow91-favicon.png" />
           </Head>
             <main className={styles.main}>  
-                <a
-                    href="https://shopping.grow91.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span className={styles.logo}>
-                    <Image src="/Grow_91_LOGO.png" alt="Logo" width={128} height={64} />
-                    </span>
-                </a>
-  
+                <div className={styles.parentDiv}>
+                    <div>
+                        <a
+                            href="https://shopping.grow91.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                        <span className={styles.logo}>
+                            <Image src="/Grow_91_LOGO.png" alt="Logo" width={128} height={64} />
+                        </span>
+                        </a>
+                    </div>
+                    <div className={styles.vertical_line}></div>
+                    <div>
+                        <a
+                            href="https://phootikismat.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                        <span className={styles.logo}>
+                            <Image src="/phootiKismat.png" alt="Logo" width={128} height={64} />
+                        </span>
+                        </a>
+                    </div>
+                </div>  
                 <div className={styles.card}>
                     <h2>
                         Track your Order here !
                     </h2>
-                    <input className={styles.input} id="tracking-input" styles="width:100%" type="text" data-id="271069" placeholder='Enter Order ID' />
+                    <input className={styles.input} id="tracking-input" styles="width:100%" maxLength={8} value={orderId} onChange={(event) => handleOnChange(event)} type="text" data-id="271069" placeholder='Enter Order ID ( G____ | PK_____ )' required/>
                     <button className={styles.submitButton} id="pickrr-tracking-btn" onClick={handleClick} role="button">Track</button>
                 </div> 
                 <PendingOrder isPending={isPendingOrder}></PendingOrder>
@@ -131,6 +151,5 @@ export default function Track() {
                 </a>
             </footer>
         </div>  
-
     )
 }
