@@ -5,7 +5,7 @@ const axios = require('axios');
 // const errorCodes = {"403", "401"}
 
 
-const shipRocketToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI0NzAxOTcsImlzcyI6Imh0dHBzOi8vYXBpdjIuc2hpcHJvY2tldC5pbi92MS9leHRlcm5hbC9hdXRoL2xvZ2luIiwiaWF0IjoxNjQ4MjE2Mzc2LCJleHAiOjE2NDkwODAzNzYsIm5iZiI6MTY0ODIxNjM3NiwianRpIjoiSnZ4WHppUW9xbnNxUjduZSJ9.j1qANiOMmxO-8CShOl8_T8iDw0FNaQpLcM9s3KSxRN4";
+const shipRocketToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI0NzAxOTcsImlzcyI6Imh0dHBzOi8vYXBpdjIuc2hpcHJvY2tldC5pbi92MS9leHRlcm5hbC9hdXRoL2xvZ2luIiwiaWF0IjoxNjQ5MjUyMjY1LCJleHAiOjE2NTAxMTYyNjUsIm5iZiI6MTY0OTI1MjI2NSwianRpIjoiTFo0bW9TS215RktCTFlvNyJ9.q-7hb0yzEUqcxzaN-fNi3k6KAKcHDvhrUH7O8K84teM";
 
 class shipRocketTracking {
     static async getTrackingDataFromAWB(idType, param) {
@@ -73,6 +73,7 @@ class shipRocketOrder {
             } else {
                 console.log('Error', error.message);
             }
+            return null;
         }
    
     }
@@ -102,6 +103,9 @@ class shipRocketOrder {
 
 async function getShipRocketTrackingLink (orderId) {
     let res = await shipRocketOrder.getOrder(orderId);
+    if (!res) {
+        return null;
+    }
     let awb = res.data[0]?.shipments[0]?.awb;
     if (res.data.length == 0 || awb === "") {
         return null;
