@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css'
 import { Card, Button } from 'react-bootstrap';
 import {set, useForm} from 'react-hook-form';
 import getTrackingLink from '../services/tracking';
+import { useRouter } from 'next/router';
 
 const pickrrAppendQueryParam = 'PICK-271069';
 
@@ -45,6 +46,40 @@ function IncorrectOrder(props) {
     }
 }
 
+
+function ChooseLogo(props) {
+    const logo = props.logo;
+    if (logo === "cryptobhai") {
+        return (
+            <div>
+                <a
+                    href="https://phootikismat.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                <span className={styles.logo}>
+                    <Image src="/CryptoBhai.png" alt="Logo" width={128} height={64} />
+                </span>
+                </a>
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <a
+                    href="https://phootikismat.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                <span className={styles.logo}>
+                    <Image src="/phootiKismat.png" alt="Logo" width={128} height={64} />
+                </span>
+                </a>
+            </div>
+        )
+    }
+}
+
 function PendingOrder(props) {
     const isPending = props.isPending;
     if (isPending) {
@@ -63,6 +98,17 @@ function PendingOrder(props) {
 }
  
 export default function Track() {    
+
+    const router = useRouter();
+    let referer        = null;
+    let placeholder    = 'Enter Order ID ( G____ | PK_____ )';
+    if ('referer' in router.query) {
+        referer = router.query.referer;
+        if (referer == 'cryptobhai') {
+            placeholder = 'Enter Order ID ( G____ | CB_____ )';
+        }        
+    } 
+
     const [isPendingOrder, setPendingOrder]     = useState(false);
     const [isIncorrectOrder, setIncorrectOrder] = useState(false);
     var   [orderId, setOrderId]                 = useState('');
@@ -71,7 +117,7 @@ export default function Track() {
         var order_id = String(event.target.value).toUpperCase();
         setOrderId(order_id);
         setPendingOrder(false);
-        if (order_id.startsWith("PK") || (order_id.startsWith("G"))) {
+        if (order_id.startsWith("PK") || (order_id.startsWith("G")) || (order_id.startsWith("CB"))) {
             setIncorrectOrder(false);
             setOrderId(order_id);
         } else {
@@ -116,23 +162,13 @@ export default function Track() {
                         </a>
                     </div>
                     <div className={styles.vertical_line}></div>
-                    <div>
-                        <a
-                            href="https://phootikismat.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                        <span className={styles.logo}>
-                            <Image src="/phootiKismat.png" alt="Logo" width={128} height={64} />
-                        </span>
-                        </a>
-                    </div>
+                    <ChooseLogo logo={referer}></ChooseLogo>
                 </div>  
                 <div className={styles.card}>
                     <h2>
                         Track your Order here !
                     </h2>
-                    <input className={styles.input} id="tracking-input" styles="width:100%" maxLength={8} value={orderId} onChange={(event) => handleOnChange(event)} type="text" data-id="271069" placeholder='Enter Order ID ( G____ | PK_____ )' required/>
+                    <input className={styles.input} id="tracking-input" styles="width:100%" maxLength={8} value={orderId} onChange={(event) => handleOnChange(event)} type="text" data-id="271069" placeholder={placeholder} required/>
                     <button className={styles.submitButton} id="pickrr-tracking-btn" onClick={handleClick} role="button">Track</button>
                 </div> 
                 <PendingOrder isPending={isPendingOrder}></PendingOrder>
