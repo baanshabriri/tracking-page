@@ -53,12 +53,12 @@ function ChooseLogo(props) {
         return (
             <div>
                 <a
-                    href="https://phootikismat.com"
+                    href="https://cryptobhai.store/"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                 <span className={styles.logo}>
-                    <Image src="/CryptoBhai.png" alt="Logo" width={128} height={64} />
+                    <Image src="/CryptoBhai.png" alt="Logo" width={120} height={64} />
                 </span>
                 </a>
             </div>
