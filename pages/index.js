@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import Image from 'next/image'
 import React, { useState, useEffect } from "react";
 import styles from '../styles/Home.module.css'
@@ -48,9 +48,15 @@ function IncorrectOrder(props) {
 
 
 function ChooseLogo(props) {
-    const logo = props.logo;
-    if (logo === "cryptobhai") {
+    const logo     = props.logo;
+    var hostname   = props.domain;
+    let regExp     = /\.([^)]+)\./;
+
+    //  hostname = "https://tracking.techmerch.com"; 
+
+    if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "techmerch") {
         return (
+        <div className={styles.parentDiv}>
             <div>
                 <a
                     href="https://cryptobhai.store/"
@@ -58,23 +64,68 @@ function ChooseLogo(props) {
                     rel="noopener noreferrer"
                 >
                 <span className={styles.logo}>
-                    <Image src="/CryptoBhai.png" alt="Logo" width={120} height={64} />
+                    <Image src="/techmerch.png" alt="Logo" width={130} height={110} />
                 </span>
                 </a>
+            </div>
+        </div>
+        )
+    }
+    
+    if (logo === "cryptobhai") {
+        return (
+            <div className={styles.parentDiv}>
+                <div>
+                    <a
+                        href="https://shopping.grow91.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                    <span className={styles.logo}>
+                        <Image src="/grow91.png" alt="Logo" width={128} height={64} />
+                    </span>
+                    </a>
+                </div>
+                <div className={styles.vertical_line}></div>
+                <div>
+                    <a
+                        href="https://cryptobhai.store/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                    <span className={styles.logo}>
+                        <Image src="/CryptoBhai.png" alt="Logo" width={120} height={64} />
+                    </span>
+                    </a>
+                </div>
             </div>
         )
     } else {
         return (
-            <div>
-                <a
-                    href="https://phootikismat.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                <span className={styles.logo}>
-                    <Image src="/phootiKismat.png" alt="Logo" width={128} height={64} />
-                </span>
-                </a>
+            <div className={styles.parentDiv}>
+                <div>
+                    <a
+                        href="https://shopping.grow91.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                    <span className={styles.logo}>
+                        <Image src={`/grow91.png`} alt="Logo" width={128} height={64} />
+                    </span>
+                    </a>
+                </div>
+                <div className={styles.vertical_line}></div>
+                <div>
+                    <a
+                        href="https://phootikismat.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                    <span className={styles.logo}>
+                        <Image src="/phootiKismat.png" alt="Logo" width={128} height={64} />
+                    </span>
+                    </a>
+                </div>
             </div>
         )
     }
@@ -98,10 +149,15 @@ function PendingOrder(props) {
 }
  
 export default function Track() {    
+    const router    = useRouter();
+    let referer     = null;
+    let placeholder = 'Enter Order ID ( G____ | PK_____ )';
 
-    const router = useRouter();
-    let referer        = null;
-    let placeholder    = 'Enter Order ID ( G____ | PK_____ )';
+    const [isPendingOrder, setPendingOrder]     = useState(false);
+    const [isIncorrectOrder, setIncorrectOrder] = useState(false);
+    var   [domain, setDomain]                   = useState(null);
+    var   [orderId, setOrderId]                 = useState('');
+
     if ('referer' in router.query) {
         referer = router.query.referer;
         if (referer == 'cryptobhai') {
@@ -109,9 +165,13 @@ export default function Track() {
         }        
     } 
 
-    const [isPendingOrder, setPendingOrder]     = useState(false);
-    const [isIncorrectOrder, setIncorrectOrder] = useState(false);
-    var   [orderId, setOrderId]                 = useState('');
+    useEffect(() => {
+        setDomain(window.location.href);
+        console.log(domain);
+        if (String(domain).includes("techmerch")) {
+            placeholder = 'Enter Order ID ( TM____ )';
+        };
+    }, []);
 
     function handleOnChange(event) {
         var order_id = String(event.target.value).toUpperCase();
@@ -149,24 +209,11 @@ export default function Track() {
             <link rel="icon" href="/grow91-favicon.png" />
           </Head>
             <main className={styles.main}>  
-                <div className={styles.parentDiv}>
-                    <div>
-                        <a
-                            href="https://shopping.grow91.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                        <span className={styles.logo}>
-                            <Image src="/Grow_91_LOGO.png" alt="Logo" width={128} height={64} />
-                        </span>
-                        </a>
-                    </div>
-                    <div className={styles.vertical_line}></div>
-                    <ChooseLogo logo={referer}></ChooseLogo>
-                </div>  
+                <ChooseLogo logo={referer} domain={domain}></ChooseLogo>
                 <div className={styles.card}>
                     <h2>
                         Track your Order here !
+                        
                     </h2>
                     <input className={styles.input} id="tracking-input" styles="width:100%" maxLength={8} value={orderId} onChange={(event) => handleOnChange(event)} type="text" data-id="271069" placeholder={placeholder} required/>
                     <button className={styles.submitButton} id="pickrr-tracking-btn" onClick={handleClick} role="button">Track</button>
