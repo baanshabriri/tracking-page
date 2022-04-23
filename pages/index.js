@@ -100,6 +100,22 @@ function ChooseLogo(props) {
                 </div>
             </div>
         )
+    } else if (logo == "ramsha_sultan") {
+        return (
+            <div className={styles.parentDiv}>
+                <div>
+                    <a
+                        href="https://phootikismat.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                    <span className={styles.logo}>
+                        <Image src="/logo.webp" alt="Logo" width={240} height={100} />
+                    </span>
+                    </a>
+                </div>
+            </div>
+        )
     } else {
         return (
             <div className={styles.parentDiv}>
@@ -128,6 +144,7 @@ function ChooseLogo(props) {
                 </div>
             </div>
         )
+
     }
 }
 
@@ -161,13 +178,14 @@ export default function Track() {
     if ('referer' in router.query) {
         referer = router.query.referer;
         if (referer == 'cryptobhai') {
-            placeholder = 'Enter Order ID ( G____ | CB_____ )';
-        }        
+            placeholder = 'Enter Order ID ( G_____ | CB_____ )';
+        } else if (referer == 'ramsha_sultan') {
+            placeholder = 'Enter Order ID ( RS_____ )';
+        }       
     } 
 
     useEffect(() => {
         setDomain(window.location.href);
-        console.log(domain);
         if (String(domain).includes("techmerch")) {
             placeholder = 'Enter Order ID ( TM____ )';
         };
