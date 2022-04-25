@@ -105,12 +105,12 @@ function ChooseLogo(props) {
             <div className={styles.parentDiv}>
                 <div>
                     <a
-                        href="https://phootikismat.com"
+                        href="https://ramshasultanstore.myshopify.com/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                     <span className={styles.logo}>
-                        <Image src="/logo.webp" alt="Logo" width={240} height={100} />
+                        <Image src="/logo.webp" alt="Logo" width={300} height={100} />
                     </span>
                     </a>
                 </div>
