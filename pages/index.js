@@ -200,12 +200,12 @@ export default function Track() {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             setDomain(window.location.href);
+            if (String(domain).includes("techmerch")) {
+                placeholder = 'Enter Order ID ( TM____ )';
+            } else if (String(domain).includes("ramshasultan")) {
+                placeholder = 'Enter Order ID ( RS____ )';
+            };    
         }
-        if (String(domain).includes("techmerch")) {
-            placeholder = 'Enter Order ID ( TM____ )';
-        } else if (String(domain).includes("ramshasultan")) {
-            placeholder = 'Enter Order ID ( RS____ )';
-        };
     }, []);
 
     function handleOnChange(event) {
