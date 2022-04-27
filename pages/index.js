@@ -51,7 +51,7 @@ function ChooseLogo(props) {
     const logo     = props.logo;
     var hostname   = props.domain;
     let regExp     = /\.([^)]+)\./;
-
+    
     //  hostname = "https://tracking.techmerch.com"; 
 
     if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "techmerch") {
@@ -70,8 +70,23 @@ function ChooseLogo(props) {
             </div>
         </div>
         )
+    } else if  (regExp.exec(hostname) && regExp.exec(hostname)[1] === "ramshasultan") {
+        return (
+            <div className={styles.parentDiv}>
+                <div>
+                    <a
+                        href="https://ramshasultanstore.myshopify.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                    <span className={styles.logo}>
+                        <Image src="/logo.webp" alt="Logo" width={300} height={100} />
+                    </span>
+                    </a>
+                </div>
+            </div>
+        )
     }
-    
     if (logo === "cryptobhai") {
         return (
             <div className={styles.parentDiv}>
@@ -185,9 +200,12 @@ export default function Track() {
     } 
 
     useEffect(() => {
-        setDomain(window.location.href);
-        if (String(domain).includes("techmerch")) {
+        let curr_url = window.location.href;
+        console.log(curr_url)
+        if (String(curr_url).includes("techmerch")) {
             placeholder = 'Enter Order ID ( TM____ )';
+        } else if (String(curr_url).includes("ramshasultan")) {
+            placeholder = 'Enter Order ID ( RS____ )';
         };
     }, []);
 
