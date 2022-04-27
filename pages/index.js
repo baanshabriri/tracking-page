@@ -200,9 +200,10 @@ export default function Track() {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             setDomain(window.location.href);
-            if (String(domain).includes("techmerch")) {
+            let url = window.location.href;
+            if (String(url).includes("techmerch")) {
                 placeholder = 'Enter Order ID ( TM____ )';
-            } else if (String(domain).includes("ramshasultan")) {
+            } else if (String(url).includes("ramshasultan")) {
                 placeholder = 'Enter Order ID ( RS____ )';
             };    
         }
