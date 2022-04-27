@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from '../styles/Home.module.css'
 import { Card, Button } from 'react-bootstrap';
 import {set, useForm} from 'react-hook-form';
@@ -186,7 +186,7 @@ export default function Track() {
 
     const [isPendingOrder, setPendingOrder]     = useState(false);
     const [isIncorrectOrder, setIncorrectOrder] = useState(false);
-    var   [domain, setDomain]                   = useState(null);
+    var   [domain, setDomain]                   = useState(null);  
     var   [orderId, setOrderId]                 = useState('');
 
     if ('referer' in router.query) {
@@ -196,14 +196,14 @@ export default function Track() {
         } else if (referer == 'ramsha_sultan') {
             placeholder = 'Enter Order ID ( RS_____ )';
         }       
-    } 
+    }     
 
     useEffect(() => {
-        let curr_url = window.location.href;
-        setDomain(window.location.href);
-        if (String(curr_url).includes("techmerch")) {
+        // setDomain(window.location.href);
+        domain = window.location.href;
+        if (String(domain).includes("techmerch")) {
             placeholder = 'Enter Order ID ( TM____ )';
-        } else if (String(curr_url).includes("ramshasultan")) {
+        } else if (String(domain).includes("ramshasultan")) {
             placeholder = 'Enter Order ID ( RS____ )';
         };
     }, []);
