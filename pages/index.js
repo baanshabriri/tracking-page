@@ -51,15 +51,14 @@ function ChooseLogo(props) {
     const logo     = props.logo;
     var hostname   = props.domain;
     let regExp     = /\.([^)]+)\./;
-    
-    //  hostname = "https://tracking.techmerch.com"; 
+    // hostname = "https://tracking.ramshasultan.store";
 
     if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "techmerch") {
         return (
         <div className={styles.parentDiv}>
             <div>
                 <a
-                    href="https://cryptobhai.store/"
+                    href="https://techmerch.store/"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -86,8 +85,7 @@ function ChooseLogo(props) {
                 </div>
             </div>
         )
-    }
-    if (logo === "cryptobhai") {
+    } else if (logo === "cryptobhai") {
         return (
             <div className={styles.parentDiv}>
                 <div>
@@ -132,6 +130,7 @@ function ChooseLogo(props) {
             </div>
         )
     } else {
+        console.log(logo);
         return (
             <div className={styles.parentDiv}>
                 <div>
@@ -213,7 +212,7 @@ export default function Track() {
         var order_id = String(event.target.value).toUpperCase();
         setOrderId(order_id);
         setPendingOrder(false);
-        if (order_id.startsWith("PK") || (order_id.startsWith("G")) || (order_id.startsWith("CB"))) {
+        if (order_id.startsWith("PK") || (order_id.startsWith("G")) || (order_id.startsWith("CB")) || (orderId.startsWith("TM"))) {
             setIncorrectOrder(false);
             setOrderId(order_id);
         } else {
