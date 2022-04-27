@@ -200,6 +200,7 @@ export default function Track() {
 
     useEffect(() => {
         let curr_url = window.location.href;
+        domain = window.location.href;
         console.log(curr_url)
         if (String(curr_url).includes("techmerch")) {
             placeholder = 'Enter Order ID ( TM____ )';
