@@ -130,7 +130,6 @@ function ChooseLogo(props) {
             </div>
         )
     } else {
-        console.log(logo);
         return (
             <div className={styles.parentDiv}>
                 <div>
@@ -199,8 +198,9 @@ export default function Track() {
     }     
 
     useEffect(() => {
-        // setDomain(window.location.href);
-        domain = window.location.href;
+        if (typeof window !== 'undefined') {
+            setDomain(window.location.href);
+        }
         if (String(domain).includes("techmerch")) {
             placeholder = 'Enter Order ID ( TM____ )';
         } else if (String(domain).includes("ramshasultan")) {
