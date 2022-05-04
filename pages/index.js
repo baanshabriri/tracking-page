@@ -51,7 +51,7 @@ function ChooseLogo(props) {
     const logo     = props.logo;
     var hostname   = props.domain;
     let regExp     = /\.([^)]+)\./;
-    // hostname = "https://tracking.ramshasultan.store";
+    hostname = "https://tracking.kattardesi.store";
 
     if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "techmerch") {
         return (
@@ -80,6 +80,22 @@ function ChooseLogo(props) {
                     >
                     <span className={styles.logo}>
                         <Image src="/logo.webp" alt="Logo" width={300} height={100} />
+                    </span>
+                    </a>
+                </div>
+            </div>
+        )
+    } else if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "kattardesi") {
+        return (
+            <div className={styles.parentDiv}>
+                <div>
+                    <a
+                        href="https://kattar-desi.myshopify.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                    <span className={styles.logo}>
+                        <Image src="/kattarDesi.png" alt="Logo" width={150} height={150} />
                     </span>
                     </a>
                 </div>
