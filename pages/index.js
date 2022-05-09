@@ -242,7 +242,7 @@ export default function Track() {
         orderId          = cleanOrderId(orderId);      
         let response     = await getTrackingLink(orderId);
         var trackingLink = response.trackingLink;
-        console.log(`Tracking Order : ${orderId} at ${new Date().toLocaleDateString()} `)
+        console.log(`Tracking Order : ${orderId} at ${new Date().toLocaleString()} `)
         
         if (trackingLink) {
             setPendingOrder(false);
