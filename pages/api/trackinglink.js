@@ -6,6 +6,7 @@ const pickrrAppendQueryParam = 'PICK-271069';
 
 export default async function handler(req, res) {
   let orderId = req?.query?.orderId;
+  console.log(`Tracking Order : ${orderId} at ${new Date().toLocaleString()}`);
   if (!orderId) {
     return res.status(400).json({ error: "Add order id" });
   }
