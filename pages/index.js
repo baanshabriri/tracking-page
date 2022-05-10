@@ -210,6 +210,8 @@ export default function Track() {
             placeholder = 'Enter Order ID ( G_____ | CB_____ )';
         } else if (referer == 'ramsha_sultan') {
             placeholder = 'Enter Order ID ( RS_____ )';
+        } else if (referer == 'kattar-desi') {
+            placeholder = 'Enter Order ID ( KD_____ )';
         }       
     }     
 
