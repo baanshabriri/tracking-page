@@ -51,7 +51,7 @@ function ChooseLogo(props) {
     const logo     = props.logo;
     var hostname   = props.domain;
     let regExp     = /\.([^)]+)\./;
-    // hostname = "https://tracking.kattardesi.store";
+    hostname = "https://tracking.kattardesi.store";
 
     if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "techmerch") {
         return (
@@ -177,6 +177,31 @@ function ChooseLogo(props) {
     }
 }
 
+function ChooseFooter(props) {
+    let regExp   = /\.([^)]+)\./;
+    let hostname = props.domain;
+    // hostname = "https://tracking.kattardesi.store";
+    if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "kattardesi") {
+        return (
+            <></>
+        )
+    } else {
+        return (
+            <>
+                 <a
+                    href="https://shopping.grow91.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                <span className={styles.logo}>
+                    <Image src="/poweredByGrow91.png" alt="Grow91" width={144} height={64} />
+                </span>
+                </a>
+            </>
+        )
+    }
+}
+
 function PendingOrder(props) {
     const isPending = props.isPending;
     if (isPending) {
@@ -211,7 +236,7 @@ export default function Track() {
         } else if (referer == 'ramsha_sultan') {
             placeholder = 'Enter Order ID ( RS_____ )';
         } else if (referer == 'kattar-desi') {
-            placeholder = 'Enter Order ID ( KD_____ )';
+            placeholder = 'Enter Order ID ( KD_____  )';
         }       
     }     
 
@@ -267,9 +292,11 @@ export default function Track() {
                 <div className={styles.card}>
                     <h2>
                         Track your Order here !
-                        
+
                     </h2>
+                    <br></br>
                     <input className={styles.input} id="tracking-input" styles="width:100%" maxLength={8} value={orderId} onChange={(event) => handleOnChange(event)} type="text" data-id="271069" placeholder={placeholder} required/>
+                    
                     <button className={styles.submitButton} id="pickrr-tracking-btn" onClick={handleClick} role="button">Track</button>
                 </div> 
                 <PendingOrder isPending={isPendingOrder}></PendingOrder>
@@ -277,15 +304,7 @@ export default function Track() {
                 {/* <script src="https://widget.pickrr.com/script.js"></script> */}
             </main>
             <footer className={styles.footer}>
-                <a
-                    href="https://shopping.grow91.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span className={styles.logo}>
-                    <Image src="/poweredByGrow91.png" alt="Grow91" width={144} height={64} />
-                    </span>
-                </a>
+                <ChooseFooter logo={referer} domain={domain}></ChooseFooter>
             </footer>
         </div>  
     )

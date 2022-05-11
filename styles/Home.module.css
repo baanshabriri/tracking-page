@@ -33,7 +33,7 @@
 }
 
 .main {
-  min-height: 68vh;
+  min-height: 70vh;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -97,7 +97,7 @@
 
 .grid {
   display: flex;
-  align-items: center;
+  align-items:center;
   justify-content: center;
   flex-wrap: wrap;
   max-width: 800px;
@@ -113,6 +113,8 @@
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  
 }
 
 .form {
