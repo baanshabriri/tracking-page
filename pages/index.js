@@ -51,7 +51,7 @@ function ChooseLogo(props) {
     const logo     = props.logo;
     var hostname   = props.domain;
     let regExp     = /\.([^)]+)\./;
-    hostname = "https://tracking.kattardesi.store";
+    // hostname = "https://tracking.kattardesi.store";
 
     if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "techmerch") {
         return (
@@ -296,7 +296,6 @@ export default function Track() {
                     </h2>
                     <br></br>
                     <input className={styles.input} id="tracking-input" styles="width:100%" maxLength={8} value={orderId} onChange={(event) => handleOnChange(event)} type="text" data-id="271069" placeholder={placeholder} required/>
-                    
                     <button className={styles.submitButton} id="pickrr-tracking-btn" onClick={handleClick} role="button">Track</button>
                 </div> 
                 <PendingOrder isPending={isPendingOrder}></PendingOrder>
