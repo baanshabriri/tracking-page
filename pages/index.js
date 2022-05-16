@@ -278,7 +278,7 @@ export default function Track() {
         if (trackingLink) {
             setPendingOrder(false);
             setIncorrectOrder(false);
-            window.open(trackingLink, "_blank");
+            location.href = trackingLink;
         } else {
             console.log('No tracking link found !! ');
             setIncorrectOrder(false);
