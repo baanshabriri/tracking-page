@@ -227,7 +227,7 @@ export default function Track() {
     const [isPendingOrder, setPendingOrder]     = useState(false);
     const [isIncorrectOrder, setIncorrectOrder] = useState(false);
     var   [domain, setDomain]                   = useState(null);  
-    var   [orderId, setOrderId]                 = useState(router.query.orderId ? router.query.orderId : '');
+    var   [orderId, setOrderId]                 = useState('');
 
     if ('orderId' in router.query) {
         orderId = router.query.orderId;
