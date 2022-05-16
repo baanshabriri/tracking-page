@@ -227,8 +227,13 @@ export default function Track() {
     const [isPendingOrder, setPendingOrder]     = useState(false);
     const [isIncorrectOrder, setIncorrectOrder] = useState(false);
     var   [domain, setDomain]                   = useState(null);  
-    var   [orderId, setOrderId]                 = useState('');
+    var   [orderId, setOrderId]                 = useState(router.query.orderId ? router.query.orderId : '');
 
+    if ('orderId' in router.query) {
+        orderId = router.query.orderId;
+        handleClick();
+    }
+    
     if ('referer' in router.query) {
         referer = router.query.referer;
         if (referer == 'cryptobhai') {
