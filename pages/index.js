@@ -51,7 +51,7 @@ function ChooseLogo(props) {
     const logo     = props.logo;
     var hostname   = props.domain;
     let regExp     = /\.([^)]+)\./;
-    // hostname = "https://tracking.kattardesi.store";
+    // hostname = "https://tracking.nextdoor.store";
 
     if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "techmerch") {
         return (
@@ -96,6 +96,22 @@ function ChooseLogo(props) {
                     >
                     <span className={styles.logo}>
                         <Image src="/kattarDesi.png" alt="Logo" width={150} height={150} />
+                    </span>
+                    </a>
+                </div>
+            </div>
+        )
+    } else if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "nextdoor") {
+        return (
+            <div className={styles.parentDiv}>
+                <div>
+                    <a
+                        href="https://kattar-desi.myshopify.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                    <span className={styles.logo}>
+                        <Image src="/next_door_logo.png" alt="Logo" width={180} height={150} />
                     </span>
                     </a>
                 </div>
@@ -180,8 +196,8 @@ function ChooseLogo(props) {
 function ChooseFooter(props) {
     let regExp   = /\.([^)]+)\./;
     let hostname = props.domain;
-    // hostname = "https://tracking.kattardesi.store";
-    if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "kattardesi") {
+    // hostname = "https://tracking.nextdoor.store";
+    if (regExp.exec(hostname) && (regExp.exec(hostname)[1] === "kattardesi" || regExp.exec(hostname)[1] === "thenextdoor")) {
         return (
             <></>
         )
@@ -242,6 +258,8 @@ export default function Track() {
             placeholder = 'Enter Order ID ( RS_____ )';
         } else if (referer == 'kattar-desi') {
             placeholder = 'Enter Order ID ( KD_____  )';
+        } else if (referer == 'thenextdoor') {
+            placeholder = 'Enter Order ID ( ND_____  )';
         }       
     }     
 
