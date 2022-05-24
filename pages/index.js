@@ -197,7 +197,7 @@ function ChooseFooter(props) {
     let regExp   = /\.([^)]+)\./;
     let hostname = props.domain;
     // hostname = "https://tracking.nextdoor.store";
-    if (regExp.exec(hostname) && (regExp.exec(hostname)[1] === "kattardesi" || regExp.exec(hostname)[1] === "thenextdoor")) {
+    if (regExp.exec(hostname) && (regExp.exec(hostname)[1] === "kattardesi" || regExp.exec(hostname)[1] === "thenextdoorbrand")) {
         return (
             <></>
         )
