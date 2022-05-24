@@ -106,7 +106,7 @@ function ChooseLogo(props) {
             <div className={styles.parentDiv}>
                 <div>
                     <a
-                        href="https://kattar-desi.myshopify.com/"
+                        href="https://thenextdoorbrand.myshopify.com/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -249,7 +249,6 @@ export default function Track() {
         orderId = router.query.orderId;
         handleClick();
     }
-    
     if ('referer' in router.query) {
         referer = router.query.referer;
         if (referer == 'cryptobhai') {
