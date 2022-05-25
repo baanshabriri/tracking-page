@@ -101,7 +101,7 @@ function ChooseLogo(props) {
                 </div>
             </div>
         )
-    } else if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "nextdoor") {
+    } else if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "thenextdoorbrand") {
         return (
             <div className={styles.parentDiv}>
                 <div>
