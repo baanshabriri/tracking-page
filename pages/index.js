@@ -51,7 +51,7 @@ function ChooseLogo(props) {
     const logo     = props.logo;
     var hostname   = props.domain;
     let regExp     = /\.([^)]+)\./;
-    // hostname = "https://tracking.nextdoor.store";
+    // hostname = "https://tracking.hungrybirds.store";
 
     if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "techmerch") {
         return (
@@ -112,6 +112,22 @@ function ChooseLogo(props) {
                     >
                     <span className={styles.logo}>
                         <Image src="/next_door_logo.png" alt="Logo" width={180} height={150} />
+                    </span>
+                    </a>
+                </div>
+            </div>
+        )
+    } else if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "hungrybirds") {
+        return (
+            <div className={styles.parentDiv}>
+                <div>
+                    <a
+                        href="https://hungrybirds.shop/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                    <span className={styles.logo}>
+                        <Image src="/hungry_birds_logo.png" alt="Logo" width={300} height={300} />
                     </span>
                     </a>
                 </div>
@@ -259,6 +275,8 @@ export default function Track() {
             placeholder = 'Enter Order ID ( KD_____  )';
         } else if (referer == 'thenextdoor') {
             placeholder = 'Enter Order ID ( ND_____  )';
+        } else if (referer == 'hungrybirds') {
+            placeholder = 'Enter Order ID ( HB_____  )';
         }       
     }     
 
