@@ -51,7 +51,7 @@ function ChooseLogo(props) {
     const logo     = props.logo;
     var hostname   = props.domain;
     let regExp     = /\.([^)]+)\./;
-    // hostname = "https://tracking.hungrybirds.store";
+    // hostname = "https://tracking.soviraj.store";
 
     if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "techmerch") {
         return (
@@ -101,6 +101,23 @@ function ChooseLogo(props) {
                 </div>
             </div>
         )
+    } else if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "soviraj") {
+        return (
+            <div className={styles.parentDiv}>
+                <div>
+                    <a
+                        href="https://soviraj.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                    <span className={styles.logo}>
+                        <Image src="/soviraj.jpg" alt="Logo" width={150} height={150} />
+                    </span>
+                    </a>
+                </div>
+            </div>
+        )
+
     } else if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "thenextdoorbrand") {
         return (
             <div className={styles.parentDiv}>
@@ -212,8 +229,8 @@ function ChooseLogo(props) {
 function ChooseFooter(props) {
     let regExp   = /\.([^)]+)\./;
     let hostname = props.domain;
-    // hostname = "https://tracking.nextdoor.store";
-    if (regExp.exec(hostname) && (regExp.exec(hostname)[1] === "kattardesi" || regExp.exec(hostname)[1] === "thenextdoorbrand" || regExp.exec(hostname)[1] === "hungrybirds")) {
+    // hostname = "https://tracking.soviraj.store";
+    if (regExp.exec(hostname) && (regExp.exec(hostname)[1] === "kattardesi" || regExp.exec(hostname)[1] === "thenextdoorbrand" || regExp.exec(hostname)[1] === "hungrybirds" || regExp.exec(hostname)[1] === "soviraj")) {
         return (
             <></>
         )
@@ -277,7 +294,9 @@ export default function Track() {
             placeholder = 'Enter Order ID ( ND_____  )';
         } else if (referer == 'hungrybirds') {
             placeholder = 'Enter Order ID ( HB_____  )';
-        }       
+        } else if (referer = 'soviraj') {
+            placeholder = 'Enter Order ID ( SV_____  )';
+        }     
     }     
 
     useEffect(() => {
