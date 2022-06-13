@@ -5,7 +5,7 @@ const axios = require('axios');
 // const errorCodes = {"403", "401"}
 
 
-const shipRocketToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI0NzAxOTcsImlzcyI6Imh0dHBzOi8vYXBpdjIuc2hpcHJvY2tldC5pbi92MS9leHRlcm5hbC9hdXRoL2xvZ2luIiwiaWF0IjoxNjUyMDg1ODY5LCJleHAiOjE2NTI5NDk4NjksIm5iZiI6MTY1MjA4NTg2OSwianRpIjoiaUtUQlU3YnhXS2M4czNDUyJ9.RLZDV7_23gwOiFivix4qWhR22awZtyIuuxsIrJsosCc";
+const shipRocketToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI0NzAxOTcsImlzcyI6Imh0dHBzOi8vYXBpdjIuc2hpcHJvY2tldC5pbi92MS9leHRlcm5hbC9hdXRoL2xvZ2luIiwiaWF0IjoxNjU1MTE1Mjg5LCJleHAiOjE2NTU5NzkyODksIm5iZiI6MTY1NTExNTI4OSwianRpIjoiWlpxaFloRzNxb0pub2lNaSJ9.0xkEiblweBVZYE-X86hgAqnbGoJRL7EV2-8ZGHvVjzA";
 
 class shipRocketTracking {
     static async getTrackingDataFromAWB(idType, param) {
