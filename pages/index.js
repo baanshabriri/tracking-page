@@ -51,7 +51,7 @@ function ChooseLogo(props) {
     const logo     = props.logo;
     var hostname   = props.domain;
     let regExp     = /\.([^)]+)\./;
-    // hostname = "https://tracking.soviraj.store";
+    // hostname = "https://tracking.bohoarmy.store";
 
     if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "techmerch") {
         return (
@@ -150,6 +150,22 @@ function ChooseLogo(props) {
                 </div>
             </div>
         )
+    } else if (regExp.exec(hostname) && regExp.exec(hostname)[1] === "bohoarmy") {
+        return (
+            <div className={styles.parentDiv}>
+                <div>
+                    <a
+                        href="https://bohoarmy.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                    <span className={styles.logo}>
+                        <Image src="/boho_army.png" alt="Logo" width={200} height={200} />
+                    </span>
+                    </a>
+                </div>
+            </div>
+        )
     } else if (logo === "cryptobhai") {
         return (
             <div className={styles.parentDiv}>
@@ -229,8 +245,8 @@ function ChooseLogo(props) {
 function ChooseFooter(props) {
     let regExp   = /\.([^)]+)\./;
     let hostname = props.domain;
-    // hostname = "https://tracking.soviraj.store";
-    if (regExp.exec(hostname) && (regExp.exec(hostname)[1] === "kattardesi" || regExp.exec(hostname)[1] === "thenextdoorbrand" || regExp.exec(hostname)[1] === "hungrybirds" || regExp.exec(hostname)[1] === "soviraj")) {
+    // hostname = "https://tracking.bohoarmy.store";
+    if (regExp.exec(hostname) && (regExp.exec(hostname)[1] === "kattardesi" || regExp.exec(hostname)[1] === "thenextdoorbrand" || regExp.exec(hostname)[1] === "hungrybirds" || regExp.exec(hostname)[1] === "soviraj" || regExp.exec(hostname)[1] === "bohoarmy")) {
         return (
             <></>
         )
@@ -284,18 +300,20 @@ export default function Track() {
     }
     if ('referer' in router.query) {
         referer = router.query.referer;
-        if (referer == 'cryptobhai') {
+        if (referer === 'cryptobhai') {
             placeholder = 'Enter Order ID ( G_____ | CB_____ )';
-        } else if (referer == 'ramsha_sultan') {
+        } else if (referer === 'ramsha_sultan') {
             placeholder = 'Enter Order ID ( RS_____ )';
-        } else if (referer == 'kattar-desi') {
+        } else if (referer === 'kattar-desi') {
             placeholder = 'Enter Order ID ( KD_____  )';
-        } else if (referer == 'thenextdoor') {
+        } else if (referer === 'thenextdoor') {
             placeholder = 'Enter Order ID ( ND_____  )';
-        } else if (referer == 'hungrybirds') {
+        } else if (referer === 'hungrybirds') {
             placeholder = 'Enter Order ID ( HB_____  )';
-        } else if (referer = 'soviraj') {
+        } else if (referer === 'soviraj') {
             placeholder = 'Enter Order ID ( SV_____  )';
+        } else if (referer === 'bohoarmy') {
+            placeholder = 'Enter Order ID ( BA_____  )';
         }     
     }     
 
